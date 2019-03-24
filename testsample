@@ -1,0 +1,65 @@
+package failedcaseHandlingsam;
+
+import java.io.File;
+import java.io.IOException;
+
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.apache.commons.io.FileUtils;
+
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.Test;
+
+
+
+public class screenshottest {
+	WebDriver wd;
+	@Test(priority=1)
+	public void loginTest()
+	{
+	    wd=new FirefoxDriver();
+		wd.get("https://www.google.com");
+	}
+	
+	@Test(priority=2)
+
+	public void regTest()
+	{
+		wd.get("https://www.bing.com");
+	}
+
+	@Test(priority=3)
+
+	public void bookingTest()
+	{
+		wd.get("http://www.ntltaxi.com/");
+	}
+	
+	@Test(priority=4)
+
+	public void cancelTest()
+	{
+		int i=1/0;
+
+		wd.get("https://www.yahoo.com");
+
+
+
+	}
+	@AfterMethod
+public void teardown(ITestResult it)throws IOException
+{
+		if(!it.isSuccess())
+			
+		{
+			
+		
+File f=((TakesScreenshot)wd).getScreenshotAs(OutputType.FILE);	
+FileUtils.copyFile(f,new File("C:\\Users\\chandraudhaya\\workspace\\TestNGTest\\screenshot\\"+it.getName()+".jpg"));
+}
+}
+
+}
